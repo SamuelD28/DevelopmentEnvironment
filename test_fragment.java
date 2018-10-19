@@ -1,9 +1,8 @@
 package com.samdube.developmentenvironment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ public class test_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Button btn = (Button)v;
-                btn.setText("Cliquer");
                 RemoveFragment();
             }
         });
@@ -31,6 +29,10 @@ public class test_fragment extends Fragment {
 
     public void RemoveFragment()
     {
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        FragmentManager fragmentManger = getActivity().getSupportFragmentManager();
+        if(fragmentManger == null)
+            throw new NullPointerException("Fragment manager is not initialise in the activity");
+        else
+            fragmentManger.beginTransaction().remove(this).commit();
     }
 }
